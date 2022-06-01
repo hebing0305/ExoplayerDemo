@@ -26,4 +26,5 @@ android {
 dependencies {
     implementation project(path: ':exoplayer')
     implementation 'androidx.leanback:leanback:1.0.0'
+    implementation "com.google.code.gson:gson:+"
 }

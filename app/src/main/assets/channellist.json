@@ -1,0 +1,242 @@
+[
+  {
+    "channelName": "CCTV-1",
+    "channelNum": 1,
+    "channelUrl": "http://192.168.26.5/live/hls/1/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-2",
+    "channelNum": 2,
+    "channelUrl": "http://192.168.26.5/live/hls/2/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-3",
+    "channelNum": 3,
+    "channelUrl": "http://192.168.26.5/live/hls/3/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-4",
+    "channelNum": 4,
+    "channelUrl": "http://192.168.26.5/live/hls/4/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-5",
+    "channelNum": 5,
+    "channelUrl": "http://192.168.26.5/live/hls/5/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-6",
+    "channelNum": 6,
+    "channelUrl": "http://192.168.26.5/live/hls/6/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-7",
+    "channelNum": 7,
+    "channelUrl": "http://192.168.26.5/live/hls/7/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-8",
+    "channelNum": 8,
+    "channelUrl": "http://192.168.26.5/live/hls/8/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-9",
+    "channelNum": 9,
+    "channelUrl": "http://192.168.26.5/live/hls/9/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-10",
+    "channelNum": 10,
+    "channelUrl": "http://192.168.26.5/live/hls/10/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-11",
+    "channelNum": 11,
+    "channelUrl": "http://192.168.26.5/live/hls/11/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-12",
+    "channelNum": 12,
+    "channelUrl": "http://192.168.26.5/live/hls/12/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-13",
+    "channelNum": 13,
+    "channelUrl": "http://192.168.26.5/live/hls/13/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-14",
+    "channelNum": 14,
+    "channelUrl": "http://192.168.26.5/live/hls/14/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-15",
+    "channelNum": 15,
+    "channelUrl": "http://192.168.26.5/live/hls/15/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-16",
+    "channelNum": 16,
+    "channelUrl": "http://192.168.26.5/live/hls/16/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-17",
+    "channelNum": 17,
+    "channelUrl": "http://192.168.26.5/live/hls/17/live.m3u8"
+  },
+  {
+    "channelName": "CCTV-5+",
+    "channelNum": 18,
+    "channelUrl": "http://192.168.26.5/live/hls/18/live.m3u8"
+  },
+  {
+    "channelName": "BRTV北京卫视",
+    "channelNum": 19,
+    "channelUrl": "http://192.168.26.5/live/hls/19/live.m3u8"
+  },
+  {
+    "channelName": "BRTV文艺",
+    "channelNum": 20,
+    "channelUrl": "http://192.168.26.5/live/hls/20/live.m3u8"
+  },
+  {
+    "channelName": "BRTV影视",
+    "channelNum": 21,
+    "channelUrl": "http://192.168.26.5/live/hls/21/live.m3u8"
+  },
+  {
+    "channelName": "BRTV财经",
+    "channelNum": 22,
+    "channelUrl": "http://192.168.26.5/live/hls/22/live.m3u8"
+  },
+  {
+    "channelName": "BRTV新闻",
+    "channelNum": 23,
+    "channelUrl": "http://192.168.26.5/live/hls/23/live.m3u8"
+  },
+  {
+    "channelName": "湖南卫视",
+    "channelNum": 24,
+    "channelUrl": "http://192.168.26.5/live/hls/24/live.m3u8"
+  },
+  {
+    "channelName": "江苏卫视",
+    "channelNum": 25,
+    "channelUrl": "http://192.168.26.5/live/hls/25/live.m3u8"
+  },
+  {
+    "channelName": "东方卫视",
+    "channelNum": 26,
+    "channelUrl": "http://192.168.26.5/live/hls/26/live.m3u8"
+  },
+  {
+    "channelName": "浙江卫视",
+    "channelNum": 27,
+    "channelUrl": "http://192.168.26.5/live/hls/27/live.m3u8"
+  },
+  {
+    "channelName": "湖北卫视",
+    "channelNum": 28,
+    "channelUrl": "http://192.168.26.5/live/hls/28/live.m3u8"
+  },
+  {
+    "channelName": "天津卫视",
+    "channelNum": 29,
+    "channelUrl": "http://192.168.26.5/live/hls/29/live.m3u8"
+  },
+  {
+    "channelName": "山东卫视",
+    "channelNum": 30,
+    "channelUrl": "http://192.168.26.5/live/hls/30/live.m3u8"
+  },
+  {
+    "channelName": "辽宁卫视",
+    "channelNum": 31,
+    "channelUrl": "http://192.168.26.5/live/hls/31/live.m3u8"
+  },
+  {
+    "channelName": "安徽卫视",
+    "channelNum": 32,
+    "channelUrl": "http://192.168.26.5/live/hls/32/live.m3u8"
+  },
+  {
+    "channelName": "黑龙江卫视",
+    "channelNum": 33,
+    "channelUrl": "http://192.168.26.5/live/hls/33/live.m3u8"
+  },
+  {
+    "channelName": "贵州卫视",
+    "channelNum": 34,
+    "channelUrl": "http://192.168.26.5/live/hls/34/live.m3u8"
+  },
+  {
+    "channelName": "东南卫视",
+    "channelNum": 35,
+    "channelUrl": "http://192.168.26.5/live/hls/35/live.m3u8"
+  },
+  {
+    "channelName": "重庆卫视",
+    "channelNum": 36,
+    "channelUrl": "http://192.168.26.5/live/hls/36/live.m3u8"
+  },
+  {
+    "channelName": "江西卫视",
+    "channelNum": 37,
+    "channelUrl": "http://192.168.26.5/live/hls/37/live.m3u8"
+  },
+  {
+    "channelName": "广东卫视",
+    "channelNum": 38,
+    "channelUrl": "http://192.168.26.5/live/hls/38/live.m3u8"
+  },
+  {
+    "channelName": "河北卫视",
+    "channelNum": 39,
+    "channelUrl": "http://192.168.26.5/live/hls/39/live.m3u8"
+  },
+  {
+    "channelName": "深圳卫视",
+    "channelNum": 40,
+    "channelUrl": "http://192.168.26.5/live/hls/40/live.m3u8"
+  },
+  {
+    "channelName": "吉林卫视",
+    "channelNum": 41,
+    "channelUrl": "http://192.168.26.5/live/hls/41/live.m3u8"
+  },
+  {
+    "channelName": "凤凰中文",
+    "channelNum": 42,
+    "channelUrl": "http://192.168.26.4/live/hls/49/live.m3u8"
+  },
+  {
+    "channelName": "凤凰资讯",
+    "channelNum": 43,
+    "channelUrl": "http://192.168.26.4/live/hls/50/live.m3u8"
+  },
+  {
+    "channelName": "星空卫视",
+    "channelNum": 44,
+    "channelUrl": "http://192.168.26.3/live/hls/49/live.m3u8"
+  },
+  {
+    "channelName": "Channel V",
+    "channelNum": 45,
+    "channelUrl": "http://192.168.26.3/live/hls/50/live.m3u8"
+  },
+  {
+    "channelName": "亚洲新闻",
+    "channelNum": 46,
+    "channelUrl": "http://192.168.26.2/live/hls/41/live.m3u8"
+  },
+  {
+    "channelName": "HBO",
+    "channelNum": 47,
+    "channelUrl": "http://192.168.26.5/live/hls/50/live.m3u8"
+  },
+  {
+    "channelName": "CNN",
+    "channelNum": 48,
+    "channelUrl": "http://192.168.26.5/live/hls/49/live.m3u8"
+  }
+]
