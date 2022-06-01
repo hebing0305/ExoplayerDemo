@@ -11,7 +11,7 @@ data class Channel(
 ) : IMediaItem {
     override fun getMediaItem(): MediaItem {
         return MediaItem.Builder()
-            .setUri(channelUrl)
+            .setUri("http://vfx.mtime.cn/Video/2021/07/10/mp4/210710171112971120.mp4")
             .setTag(this)
             .build()
     }
