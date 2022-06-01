@@ -1,4 +1,4 @@
 <resources>
 
-    <style name="Theme.ExoplayerDemo" parent="@style/Theme.Leanback" />
+    <style name="Theme.ExoplayerDemo" parent="android:Theme.Black.NoTitleBar.Fullscreen" />
 </resources>

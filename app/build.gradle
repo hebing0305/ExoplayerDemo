@@ -24,7 +24,6 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation project(path: ':exoplayer')
     implementation 'androidx.leanback:leanback:1.0.0'
 }
