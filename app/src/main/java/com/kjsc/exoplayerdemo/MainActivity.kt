@@ -1,6 +1,7 @@
 package com.kjsc.exoplayerdemo
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -46,6 +47,11 @@ class MainActivity : FragmentActivity() {
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
                 exoplayer.player?.seekToNext()
+                return true
+            }
+            KeyEvent.KEYCODE_ENTER -> {
+                val intent = Intent(this, TestActivity::class.java)
+                startActivity(intent)
                 return true
             }
         }

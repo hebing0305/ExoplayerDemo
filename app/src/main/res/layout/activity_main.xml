@@ -8,6 +8,5 @@
     <com.kjsc.exoplayer.ExoPlayerView
         android:id="@+id/exoplayer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:use_controller="false" />
+        android:layout_height="match_parent" />
 </FrameLayout>
