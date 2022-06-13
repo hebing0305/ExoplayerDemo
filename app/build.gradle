@@ -8,11 +8,11 @@ android {
 
     defaultConfig {
         applicationId "com.kjsc.exoplayerdemo"
-        minSdk 21
+        minSdk 19
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -24,11 +24,12 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.hebing0305:ExoplayerDemo:1.1'
+//    implementation 'com.github.hebing0305:ExoplayerDemo:1.1'
     implementation 'androidx.leanback:leanback:1.0.0'
     implementation "com.google.code.gson:gson:+"
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    implementation project(path: ':exoplayer')
+    implementation project(path: ':exoplayer')
+    implementation("androidx.multidex:multidex:2.0.1")
 }
