@@ -17,23 +17,29 @@ import com.kjsc.exoplayer.ExoPlayerView
 
 class MainActivity : FragmentActivity() {
     lateinit var exoplayer: ExoPlayerView
+    var playIndex = 0
+    var isError = false
+    lateinit var channelList: List<Channel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val json = getJsonForAssets("channellist.json")
-        val channelList = Gson().fromListJson<List<Channel>>(json)
+        channelList = Gson().fromListJson<List<Channel>>(json)
         exoplayer = findViewById(R.id.exoplayer)
         exoplayer.setLifecycle(lifecycle)
         exoplayer.setIMediaItems(channelList)
         exoplayer.addListener(object : Player.Listener {
             override fun onPlayerError(error: PlaybackException) {
                 super.onPlayerError(error)
+                isError = true
                 showToast("播放出错！" + error.message)
             }
 
             override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
                 super.onMediaItemTransition(mediaItem, reason)
+                isError = false
                 val channel = mediaItem?.localConfiguration?.tag as? Channel
+                playIndex = channelList.indexOf(channel)
                 showToast("正在播放：" + channel?.channelName)
             }
         })
@@ -42,11 +48,21 @@ class MainActivity : FragmentActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_DPAD_UP -> {
-                exoplayer.player?.seekToPrevious()
+                if (playIndex > 0) {
+                    playIndex--
+                    exoplayer.setIMediaItems(channelList, playIndex)
+                } else {
+                    showToast("已经是第一个频道了")
+                }
                 return true
             }
             KeyEvent.KEYCODE_DPAD_DOWN -> {
-                exoplayer.player?.seekToNext()
+                if (playIndex < channelList.size) {
+                    playIndex++
+                    exoplayer.setIMediaItems(channelList, playIndex)
+                } else {
+                    showToast("已经是最后一个频道了")
+                }
                 return true
             }
             KeyEvent.KEYCODE_ENTER -> {
