@@ -24,7 +24,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val json = getJsonForAssets("channellist.json")
-        channelList = Gson().fromListJson<List<Channel>>(json)
+        channelList = Gson().fromListJson(json)
         exoplayer = findViewById(R.id.exoplayer)
         exoplayer.setLifecycle(lifecycle)
         exoplayer.setIMediaItems(channelList)
@@ -65,11 +65,11 @@ class MainActivity : FragmentActivity() {
                 }
                 return true
             }
-            KeyEvent.KEYCODE_ENTER -> {
-                val intent = Intent(this, TestActivity::class.java)
-                startActivity(intent)
-                return true
-            }
+//            KeyEvent.KEYCODE_ENTER -> {
+//                val intent = Intent(this, TestActivity::class.java)
+//                startActivity(intent)
+//                return true
+//            }
         }
         return super.onKeyDown(keyCode, event)
     }

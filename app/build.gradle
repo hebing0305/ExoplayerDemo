@@ -28,4 +28,5 @@ dependencies {
     implementation "com.google.code.gson:gson:2.9.0"
     implementation project(path: ':exoplayer')
     implementation("androidx.multidex:multidex:2.0.1")
+//    implementation 'com.github.hebing0305:ExoplayerDemo:1.5'
 }

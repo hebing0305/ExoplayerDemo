@@ -1,32 +1,37 @@
 package com.kjsc.exoplayer
 
+import android.app.Activity
+import android.app.Application
+import android.app.Service
 import android.content.Context
+import android.content.ContextWrapper
 import android.graphics.Color
 import android.net.Uri
 import android.util.AttributeSet
-import android.view.KeyEvent
-import android.view.View
-import kotlin.jvm.JvmOverloads
-import com.google.android.exoplayer2.ui.PlayerView
+import android.view.*
+import android.widget.FrameLayout
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.kjsc.exoplayer.IMediaItem
-import com.kjsc.exoplayer.R
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.exoplayer2.DefaultLoadControl
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
-import java.lang.Exception
-import java.util.ArrayList
+import com.google.android.exoplayer2.ui.PlayerView
 
-class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    PlayerView(
-        context!!, attrs, defStyleAttr
+
+class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    FrameLayout(
+        context, attrs, defStyleAttr
     ), DefaultLifecycleObserver {
 
     var player: ExoPlayer? = null
+    var playerView: PlayerView
+    var controller: CustomPlayerControlView
+    var progressBar: CustomProgressBar
+
+
     var uri: Uri? = null
     private var mediaItems: List<MediaItem>? = null
     var repeatMode = Player.REPEAT_MODE_ONE
@@ -36,9 +41,16 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
         }
 
     init {
+        playerView = PlayerView(context, attrs, defStyleAttr)
+        playerView.isFocusable = false
+        val params =
+            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        addView(playerView, params)
+        controller = findViewById(R.id.exo_controller)
+        progressBar = findViewById(R.id.exo_progress)
         setBackgroundColor(Color.BLACK)
-        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-        if (useController) {
+        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+        if (playerView.useController) {
             isFocusable = true
             isFocusableInTouchMode = true
         }
@@ -63,7 +75,7 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
             player?.addListener(listener!!)
         }
         player?.repeatMode = repeatMode
-        setPlayer(player)
+        playerView.setPlayer(player)
     }
 
     fun setVideoURI(uri: Uri, startPositionMs: Long = 0) {
@@ -123,11 +135,8 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
         }
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.action == KeyEvent.ACTION_DOWN && useController) {
-//            if(isFull && event.getKeyCode()==KeyEvent.KEYCODE_BACK){
-//                stopFull();
-//                return true;
-//            }
+        if (event.action == KeyEvent.ACTION_DOWN && playerView.useController) {
+            controller.show()
             when (event.keyCode) {
                 KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
                     val btnPlay = findViewById<View>(R.id.exo_play)
@@ -136,7 +145,20 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
                 }
             }
         }
+        if (event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_BACK) {
+            if (playerView.parent != this) {
+                exitFullScreen()
+                return true
+            }
+        }
         return super.dispatchKeyEvent(event)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (controller.isShown) {
+            return progressBar.onKeyDown(keyCode, event)
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     var listener: Player.Listener? = null
@@ -169,16 +191,11 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
         }
     }
 
-    override fun onStart(owner: LifecycleOwner) {
-        super.onStart(owner)
-    }
-
     var resumeIndex = 0 //记录上次播放的视频下标
     var resumePosition = 0L //记录上次播放的视频位置
     var isResumePlay = false //是否需要恢复播放
     override fun onPause(owner: LifecycleOwner) {
-        super<DefaultLifecycleObserver>.onPause(owner)
-        super<PlayerView>.onPause()
+        playerView.onPause()
         player?.let {
             isResumePlay = true
             resumeIndex = mediaItemsIndex
@@ -188,8 +205,7 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
     }
 
     override fun onResume(owner: LifecycleOwner) {
-        super<DefaultLifecycleObserver>.onResume(owner)
-        super<PlayerView>.onResume()
+        playerView.onResume()
         println("OnLifecycleEvent ON_RESUME $uri isResumePlay=$isResumePlay")
         if (isResumePlay && player == null) {
             if (mediaItems != null) {
@@ -209,5 +225,52 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
         return list
     }
 
+    fun fullScreen() {
+        val activity = getActivityFromContext(context)
+        val viewGroup = activity?.window?.decorView as? ViewGroup
+        if (viewGroup != null) {
+            removeView(playerView)
+            val params =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            viewGroup.addView(playerView, params)
+            playerView.useController = true
+        }
+    }
+
+    fun exitFullScreen() {
+        val activity = getActivityFromContext(context)
+        val viewGroup = activity?.window?.decorView as? ViewGroup
+        if (viewGroup != null) {
+            viewGroup.removeView(playerView)
+            val params =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            addView(playerView, params)
+            playerView.useController = false
+        }
+    }
+
+    fun getActivityFromContext(context: Context?): Activity? {
+        if (context == null) {
+            return null
+        }
+        if (context is Activity) {
+            return context
+        }
+        if (context is Application || context is Service) {
+            return null
+        }
+        var c = context
+        while (c != null) {
+            if (c is ContextWrapper) {
+                c = c.baseContext
+                if (c is Activity) {
+                    return c
+                }
+            } else {
+                return null
+            }
+        }
+        return null
+    }
 
 }
