@@ -42,9 +42,9 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     init {
         playerView = PlayerView(context, attrs, defStyleAttr)
+        playerView.setPadding(0, 0, 0, 0)
         playerView.isFocusable = false
-        val params =
-            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         addView(playerView, params)
         controller = findViewById(R.id.exo_controller)
         progressBar = findViewById(R.id.exo_progress)

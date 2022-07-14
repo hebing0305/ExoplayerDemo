@@ -11,6 +11,7 @@
         android:id="@+id/exoplayer"
         android:layout_width="500dp"
         android:layout_height="500dp"
+        android:paddingLeft="30dp"
         android:focusable="true"
         app:use_controller="false" />
 
