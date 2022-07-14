@@ -106,20 +106,12 @@ class ExoPlayerView @JvmOverloads constructor(context: Context?, attrs: Attribut
         return mediaItems
     }
 
-    fun setIMediaItems(iMediaItems: List<IMediaItem>) {
+    fun setIMediaItems(iMediaItems: List<IMediaItem>, startIndex: Int = 0, startPos: Long = 0) {
         val mediaItems: MutableList<MediaItem> = ArrayList()
         for (iMediaItem in iMediaItems) {
             mediaItems.add(iMediaItem.mediaItem)
         }
-        setMediaItems(mediaItems)
-    }
-
-    fun setIMediaItems(iMediaItems: List<IMediaItem>, startIndex: Int) {
-        val mediaItems: MutableList<MediaItem> = ArrayList()
-        for (iMediaItem in iMediaItems) {
-            mediaItems.add(iMediaItem.mediaItem)
-        }
-        setMediaItems(mediaItems, startIndex)
+        setMediaItems(mediaItems, startIndex, startPos)
     }
 
     var mediaItemsIndex: Int
