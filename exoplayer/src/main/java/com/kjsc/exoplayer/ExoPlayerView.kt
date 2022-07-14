@@ -165,11 +165,6 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
         return playerView.parent != this
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-
-        return super.onKeyDown(keyCode, event)
-    }
-
     var listener: Player.Listener? = null
     fun addListener(listener: Player.Listener?) {
         this.listener = listener
