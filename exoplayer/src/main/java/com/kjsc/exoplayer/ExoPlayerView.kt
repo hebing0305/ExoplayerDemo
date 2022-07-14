@@ -136,28 +136,31 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (event.action == KeyEvent.ACTION_DOWN && playerView.useController) {
-            controller.show()
-            when (event.keyCode) {
-                KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
-                    val btnPlay = findViewById<View>(R.id.exo_play)
-                    val btnPause = findViewById<View>(R.id.exo_pause)
-                    if (btnPlay.isShown) btnPlay.performClick() else btnPause.performClick()
+            if (playerView.useController) {
+                controller.show()
+                val ret1 = controller.dispatchKeyEvent(event)
+                val ret2 = progressBar.onKeyDown(event.keyCode, event)
+                if (ret1 || ret2) {
+                    return true
+                }
+            }
+            if (event.keyCode == KeyEvent.KEYCODE_BACK) {
+                if (playerView.parent != this) {
+                    exitFullScreen()
+                    return true
                 }
             }
         }
-        if (event.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_BACK) {
-            if (playerView.parent != this) {
-                exitFullScreen()
-                return true
-            }
-        }
+
         return super.dispatchKeyEvent(event)
     }
 
+    fun isFullScreen(): Boolean {
+        return playerView.parent != this
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (controller.isShown) {
-            return progressBar.onKeyDown(keyCode, event)
-        }
+
         return super.onKeyDown(keyCode, event)
     }
 
