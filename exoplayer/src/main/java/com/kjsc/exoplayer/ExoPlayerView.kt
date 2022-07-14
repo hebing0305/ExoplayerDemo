@@ -46,8 +46,8 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
         playerView.isFocusable = false
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         addView(playerView, params)
-        controller = findViewById(R.id.exo_controller)
-        progressBar = findViewById(R.id.exo_progress)
+        controller = playerView.findViewById(R.id.exo_controller)
+        progressBar = playerView.findViewById(R.id.exo_progress)
         setBackgroundColor(Color.BLACK)
         playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
         if (playerView.useController) {
@@ -138,9 +138,15 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
         if (event.action == KeyEvent.ACTION_DOWN && playerView.useController) {
             if (playerView.useController) {
                 controller.show()
-                val ret1 = controller.dispatchKeyEvent(event)
-                val ret2 = progressBar.onKeyDown(event.keyCode, event)
-                if (ret1 || ret2) {
+                when (event.keyCode) {
+                    KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
+                        val btnPlay = playerView.findViewById<View>(R.id.exo_play)
+                        val btnPause = playerView.findViewById<View>(R.id.exo_pause)
+                        if (btnPlay.isShown) btnPlay.performClick() else btnPause.performClick()
+                        return true
+                    }
+                }
+                if (progressBar.onKeyDown(event.keyCode, event)) {
                     return true
                 }
             }
@@ -229,26 +235,30 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun fullScreen() {
-        val activity = getActivityFromContext(context)
-        val viewGroup = activity?.window?.decorView as? ViewGroup
-        if (viewGroup != null) {
-            removeView(playerView)
-            val params =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            viewGroup.addView(playerView, params)
-            playerView.useController = true
+        if (!isFullScreen()) {
+            val activity = getActivityFromContext(context)
+            val viewGroup = activity?.window?.decorView as? ViewGroup
+            if (viewGroup != null) {
+                removeView(playerView)
+                val params =
+                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                viewGroup.addView(playerView, params)
+                playerView.useController = true
+            }
         }
     }
 
     fun exitFullScreen() {
-        val activity = getActivityFromContext(context)
-        val viewGroup = activity?.window?.decorView as? ViewGroup
-        if (viewGroup != null) {
-            viewGroup.removeView(playerView)
-            val params =
-                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            addView(playerView, params)
-            playerView.useController = false
+        if (isFullScreen()) {
+            val activity = getActivityFromContext(context)
+            val viewGroup = activity?.window?.decorView as? ViewGroup
+            if (viewGroup != null) {
+                viewGroup.removeView(playerView)
+                val params =
+                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                addView(playerView, params)
+                playerView.useController = false
+            }
         }
     }
 
