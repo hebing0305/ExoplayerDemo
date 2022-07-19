@@ -129,8 +129,12 @@ class ExoPlayerView @JvmOverloads constructor(context: Context, attrs: Attribute
     var mediaItemsIndex: Int
         get() = player?.currentMediaItemIndex ?: -1
         set(index) {
-            if (player != null && index >= 0 && index < mediaItems!!.size) {
-                player?.seekToDefaultPosition(index)
+            if (player != null && index >= 0 && index < (mediaItems?.size ?: 0)) {
+                if (player?.playerError != null) {
+                    setMediaItems(mediaItems, index)
+                } else {
+                    player?.seekToDefaultPosition(index)
+                }
             }
         }
 
